@@ -3,7 +3,8 @@ import axios from "axios";
 import {
     FETCH_JOBS_SUCCESS,
     FETCH_JOBS_REQUEST,
-    LIKE_JOB
+    LIKE_JOB,
+    CLEAR_LIKED_JOBS
 } from "./types";
 
 const API_ENDPOINT = "https://jobs.github.com/positions.json?lat=37.3229978&long=-122.0321823";

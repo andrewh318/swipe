@@ -67,6 +67,21 @@ class DeckScreen extends Component {
     );
   }
 
+  renderNoMoreCards() {
+    return (
+      <Card title="No more jobs!">
+        <Button
+          title="Back To Map"
+          icon={{ name: "my-location", color: "white" }}
+          buttonStyle={{ backgroundColor: "#E43F3F", height: 50 }}
+          onPress={() => {
+            this.props.navigation.navigate("map");
+          }}
+        />
+      </Card>
+    );
+  }
+
   handleLikeJob(job) {
     const containsLikedJob = this.props.likedJobs.some(val => {
       return val.id == job.id;
@@ -77,21 +92,6 @@ class DeckScreen extends Component {
     }
   }
 
-  renderNoMoreCards() {
-    return (
-      <Card title="No more jobs!">
-        <Button
-          title="Back To Map"
-          icon={{ name: "my-location", color: "white" }}
-          buttonStyle={{ backgroundColor: "#E43F3F", height: 60 }}
-          onPress={() => {
-            this.props.navigation.navigate("map");
-          }}
-        />
-      </Card>
-    );
-  }
-
   render() {
     return (
       <View style={{ marginTop: 20 }}>
@@ -99,9 +99,7 @@ class DeckScreen extends Component {
           data={this.props.jobs}
           renderCard={this.renderCard}
           renderNoMoreCards={this.renderNoMoreCards}
-          onSwipeRight={job => {
-            this.handleLikeJob(job);
-          }}
+          onSwipeRight={this.handleLikeJob}
           keyProp="id"
         />
       </View>

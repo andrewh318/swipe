@@ -25,11 +25,17 @@ class ReviewScreen extends Component {
     )
   });
 
+  formatJobDate(date) {
+    const tokens = date.split(" ");
+    const formattedDate = tokens[0] + " " + tokens[1] + " " + tokens[2];
+
+    // alternatively, you could return this in 'Posted X days ago' form instead
+    return formattedDate;
+  }
+
   renderLikedJobs() {
     return this.props.likedJobs.map(job => {
       const { company, created_at, url, title, id } = job;
-      const tokens = created_at.split(" ");
-      const formattedDate = tokens[0] + " " + tokens[1] + " " + tokens[2];
       return (
         <Card title={title} titleStyle={{ fontSize: 15 }} key={id}>
           <View style={{ height: 200 }}>
@@ -46,7 +52,7 @@ class ReviewScreen extends Component {
             />
             <View style={styles.detailsWrapper}>
               <Text style={styles.italics}>{company}</Text>
-              <Text style={styles.italics}>{formattedDate}</Text>
+              <Text style={styles.italics}>{this.formatJobDate(created_at)}</Text>
             </View>
             <Button
               title="Apply Now!"

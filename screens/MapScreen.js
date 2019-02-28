@@ -16,6 +16,13 @@ const mapStateToProps = ({ jobs }) => {
   };
 };
 
+const initialRegion = {
+  longitude: -122,
+  latitude: 37,
+  longitudeDelta: 0.04,
+  latitudeDelta: 0.09
+};
+
 class MapScreen extends Component {
   static navigationOptions = {
     title: "Map",
@@ -26,12 +33,7 @@ class MapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      region: {
-        longitude: -122,
-        latitude: 37,
-        longitudeDelta: 0.04,
-        latitudeDelta: 0.09
-      }
+      region: initialRegion
     };
   }
 
@@ -46,7 +48,6 @@ class MapScreen extends Component {
   }
 
   render() {
-    console.log(this.props.isFetching);
     return (
       <View style={{ flex: 1 }}>
         <MapView
@@ -57,8 +58,8 @@ class MapScreen extends Component {
         {this.props.isFetching && (
           <Spinner
             visible={this.props.isFetching}
-            color = "#E43F3F"
-            size = "large"
+            color="#E43F3F"
+            size="large"
             textContent={"Finding Jobs..."}
             textStyle={styles.spinnerTextStyle}
           />
@@ -95,7 +96,7 @@ const styles = {
     margin: 20
   },
   spinnerTextStyle: {
-    color: '#FFF',
+    color: "#FFF",
     fontSize: 15
-  },
+  }
 };
