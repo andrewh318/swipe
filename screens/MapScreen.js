@@ -1,21 +1,28 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
-import { Button, Icon } from "react-native-elements"
+import { View, Text, ActivityIndicator } from "react-native";
+import { Button, Icon } from "react-native-elements";
 import { MapView } from "expo";
 import { connect } from "react-redux";
 import { fetchJobs } from "../actions";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const mapDispatchToProps = {
   fetchJobs
 };
 
+const mapStateToProps = ({ jobs }) => {
+  return {
+    isFetching: jobs.isFetching
+  };
+};
+
 class MapScreen extends Component {
   static navigationOptions = {
     title: "Map",
-    tabBarIcon: ({tintColor}) => {
-      return <Icon name="my-location" size={25} color={tintColor}/>
+    tabBarIcon: ({ tintColor }) => {
+      return <Icon name="my-location" size={25} color={tintColor} />;
     }
-  }
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -39,6 +46,7 @@ class MapScreen extends Component {
   }
 
   render() {
+    console.log(this.props.isFetching);
     return (
       <View style={{ flex: 1 }}>
         <MapView
@@ -46,13 +54,27 @@ class MapScreen extends Component {
           region={this.state.region}
           onRegionChangeComplete={this.onRegionChangeComplete.bind(this)}
         />
+        {this.props.isFetching && (
+          <Spinner
+            visible={this.props.isFetching}
+            color = "#E43F3F"
+            size = "large"
+            textContent={"Finding Jobs..."}
+            textStyle={styles.spinnerTextStyle}
+          />
+        )}
         <View style={styles.buttonContainer}>
-          <Button 
+          <Button
             raised
-            buttonStyle={{backgroundColor: "#E43F3F", height: 50, borderRadius: 50}}
-            icon = {{name: "search", color: "white"}}
+            buttonStyle={{
+              backgroundColor: "#E43F3F",
+              height: 50,
+              borderRadius: 50
+            }}
+            icon={{ name: "search", color: "white" }}
             title="Find Jobs!"
-            onPress={this.onButtonPress.bind(this)}/>
+            onPress={this.onButtonPress.bind(this)}
+          />
         </View>
       </View>
     );
@@ -60,16 +82,20 @@ class MapScreen extends Component {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(MapScreen);
 
 const styles = {
   buttonContainer: {
-    position: 'absolute', 
+    position: "absolute",
     bottom: 20,
     left: 0,
     right: 0,
     margin: 20
-  }
-}
+  },
+  spinnerTextStyle: {
+    color: '#FFF',
+    fontSize: 15
+  },
+};
