@@ -9,7 +9,7 @@ const mapDispatchToProps = {
 };
 class SettingsScreen extends Component {
   static navigationOptions = () => ({
-    title: "Settings",
+    title: "Settings"
   });
   render() {
     return (
@@ -17,7 +17,10 @@ class SettingsScreen extends Component {
         <Button
           title="Reset Liked Jobs"
           buttonStyle={{ backgroundColor: "#E43F3F", height: 60 }}
-          onPress={this.props.clearLikedJobs}
+          onPress={() => {
+            this.props.clearLikedJobs();
+            this.props.navigation.navigate("review");
+          }}
           icon={{ name: "delete-forever", color: "white" }}
         />
       </View>
