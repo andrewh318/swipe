@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { connect } from "react-redux";
 import { MapView } from "expo";
 import { Card, Button, Icon } from "react-native-elements";
@@ -46,7 +46,7 @@ class DeckScreen extends Component {
     return (
       <Card title={job.title} containerStyle={styles.containerStyle}>
         <View style={{ height: 300, marginBottom: 20 }}>
-          <MapView
+          {/* <MapView
             scrollEnabled={false}
             style={{ flex: 1 }}
             cacheEnabled={true}
@@ -56,7 +56,8 @@ class DeckScreen extends Component {
               longitudeDelta: 0.04,
               latitudeDelta: 0.09
             }}
-          />
+          /> */}
+          <Image source={require("../assets/maps-placeholder.png")} style={{height: 300, width: 350}} />
         </View>
         <View style={styles.detailsWrapper}>
           <Text>{job.company}</Text>

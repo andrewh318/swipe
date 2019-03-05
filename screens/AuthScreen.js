@@ -21,7 +21,7 @@ class AuthScreen extends Component {
     // AsyncStorage.removeItem("fb_token");
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     this.navigateIfAuthComplete(this.props);
   }
 
